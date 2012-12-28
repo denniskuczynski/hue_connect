@@ -5,6 +5,8 @@ require 'capybara/rspec'
 
 require 'hue_connect'
 
+require "rails_helper"
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[File.dirname(__FILE__)+"/support/**/*.rb"].each  do |f|

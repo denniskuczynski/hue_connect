@@ -26,5 +26,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "capybara"
 
   # For Rails integration testing
-  s.add_development_dependency "rails"
+  gem.add_development_dependency "rails"
 end

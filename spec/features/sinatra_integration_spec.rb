@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe "SinatraIntegration", :type => :request do
+describe "SinatraIntegration", :type => :feature do
   
   before :all do
-    Capybara.app = BeanstalkdView::Server.new
+    Capybara.app = HueConnect::Server.new
   end
   
   it_behaves_like "web_dashboard" do
