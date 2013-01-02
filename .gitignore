@@ -3,4 +3,5 @@ pkg
 doc
 *.gem
 
+hue_connect.json
 spec/rails_app/log
