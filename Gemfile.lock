@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    hue_connect (0.0.2)
+    hue_connect (0.0.3)
       coffee-script
       json
       sinatra (>= 1.3.0)

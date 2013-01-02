@@ -4,6 +4,8 @@
 
 Simple Sinatra endpoint for controlling Phillips Hue lights
 
+For more info on the Hue API check out [http://rsmck.co.uk/hue](http://rsmck.co.uk/hue)
+
 ## Installation
 
 Clone the repository on a server on the same network as your Phillips Hue Hub, then execute rackup to start the server on port 9292.
