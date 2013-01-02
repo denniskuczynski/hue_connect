@@ -1,0 +1,87 @@
+<div class="row">
+  <div class="span4">
+	<table class="table">
+	  <tr><td>name</td><td><%= light['name']%></td></tr>
+	  <tr><td>type</td><td><%= light['type']%></td></tr>
+	  <tr><td>modelid</td><td><%= light['modelid']%></td></tr>
+	  <tr><td>swversion</td><td><%= light['swversion']%></td></tr>
+	  <tr><td>colormode</td><td><%= light['state']['colormode']%></td></tr>
+	</table>
+  </div>
+  <div class="span8">
+  	<form action="<%=u('/adjust')%>" method="POST" class="form-horizontal">
+	  <input id="index" name="index" type="hidden" value="<%= index %>"/>
+	  <input id="on" name="on" type="hidden" value="<% if light['state']['on'] %>false<% else %>true<% end %>"/>
+  	  <div class="control-group">
+  		<div class="controls">
+  		  <button type="submit" class="btn btn-primary">
+			<% if light['state']['on'] %>Turn Off<% else %>Turn On<% end %>
+		  </button>
+  	    </div>
+  	  </div>
+  	</form>
+	
+	<form action="<%=u('/adjust')%>" method="POST" class="form-horizontal">
+	  <input id="index" name="index" type="hidden" value="<%= index %>"/>
+	  <div class="control-group">
+	    <label class="control-label" for="ct">Temperature</label>
+	    <div class="controls">
+	      <input id="ct" name="ct" type="range" min="154" max="500" step="1" value="<%= light['state']['ct']%>"/>
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <label class="control-label" for="bri">Brightness</label>
+	    <div class="controls">
+	      <input id="bri" name="bri" type="range" min="0" max="254" step="1" value="<%= light['state']['bri']%>"/>
+	    </div>
+	  </div>
+	  <div class="control-group">
+		<div class="controls">
+		  <button type="submit" class="btn btn-primary">Adjust Temperature</button>
+	    </div>
+	  </div>
+	</form>
+	
+
+	<form action="<%=u('/adjust')%>" method="POST" class="form-horizontal">
+	  <input id="index" name="index" type="hidden" value="<%= index %>"/>
+	  <div class="control-group">
+	    <label class="control-label" for="hue">Hue</label>
+	    <div class="controls">
+	      <input id="hue" name="hue" type="range" min="0" max="65535" step="1" value="<%= light['state']['hue']%>"/>
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <label class="control-label" for="sat">Saturation</label>
+	    <div class="controls">
+	      <input id="sat" name="sat" type="range" min="0" max="254" step="1" value="<%= light['state']['sat']%>"/>
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <label class="control-label" for="bri">Brightness</label>
+	    <div class="controls">
+	      <input id="bri" name="bri" type="range" min="0" max="254" step="1" value="<%= light['state']['bri']%>"/>
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <label class="control-label" for="sat">Flash</label>
+	    <div class="controls">
+	      <select id="alert" name="alert">
+  	  	    <option value="none" <% if light['state']['alert'] == 'none'%>selected="true"<% end %>>None</option>
+	  	    <option value="select" <% if light['state']['alert'] == 'select'%>selected="true"<% end %>> Once</option>
+	  	    <option value="lselect" <% if light['state']['alert'] == 'lselect'%>selected="true"<% end %>">Repeatedly</option>
+		  </select>
+	    </div>
+	  </div>
+	  <div class="controls">
+	    <button type="submit" class="btn btn-primary">Adjust Color</button>
+      </div>
+	</form>
+
+  </div>
+</div>
+
+<div class="row">
+	<div class="span12"><hr/></div>
+</div>
+

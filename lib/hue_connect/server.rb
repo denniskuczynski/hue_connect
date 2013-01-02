@@ -29,7 +29,7 @@ module HueConnect
       @configuration = HueConnect::Configuration.new
       if @configuration.hub_ip and @configuration.username
          hub = HueConnect::HueHub.new(@configuration.hub_ip, @configuration.username)
-         @lights = hub.get_info
+         @hub_info = hub.get_info
       end
       erb :index
     end
@@ -56,15 +56,26 @@ module HueConnect
       else
         redirect_to_root "Unable to find Hue Hub IP"
       end
-    end    
+    end
+    
+    post "/adjust" do
+      configuration = HueConnect::Configuration.new
+      hub = HueConnect::HueHub.new(configuration.hub_ip, configuration.username)
+      index = convert_adjust_params_and_return_index(params)
+      if hub.adjust_light(index, params)
+        redirect_to_root "Light successfully adjusted - #{params}"
+      else
+        redirect_to_root "Unable to adjust light"
+      end
+    end
 
+    private
+    
     def url_path(*path_parts)
       [ path_prefix, path_parts ].join("/").squeeze('/')
     end
     alias_method :u, :url_path
-
-    private
-
+    
     def path_prefix
       request.env['SCRIPT_NAME']
     end
@@ -78,6 +89,16 @@ module HueConnect
     def redirect_to_root(message)
       cookies[:hue_connect_notice] = message
       redirect url("/")
+    end
+    
+    # Convert Form String Values to Appropriate Types
+    def convert_adjust_params_and_return_index(params)
+      params['on'] = params['on'] == 'true' if params['on']
+      params['bri'] = params['bri'].to_i if params['bri']
+      params['ct'] = params['ct'].to_i if params['ct']
+      params['sat'] = params['sat'].to_i if params['sat']
+      params['hue'] = params['hue'].to_i if params['hue']
+      params.delete('index')
     end
 
   end

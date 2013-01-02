@@ -22,9 +22,9 @@ module HueConnect
       }
       request.body = JSON.generate(parameters)
       response = http.request(request)
+      puts "Sent #{request.body} recieved #{response.body}"
       if response.code.to_i == 200
         response_json = JSON.parse(response.body)
-        puts response_json
         return username if not response_json[0]['error']
       end
       return nil
@@ -35,6 +35,19 @@ module HueConnect
       http = Net::HTTP.new(uri.host, uri.port)
       request = Net::HTTP::Get.new(uri.request_uri)
       response = http.request(request)
+      if response.code.to_i == 200
+        return JSON.parse(response.body)
+      end
+      return nil
+    end
+    
+    def adjust_light(index, parameters)
+      uri = URI.parse("http://#{@hub_ip}/api/#{@username}/lights/#{index}/state")
+      http = Net::HTTP.new(uri.host, uri.port)
+      request = Net::HTTP::Put.new(uri.request_uri)
+      request.body = JSON.generate(parameters)
+      response = http.request(request)
+      puts "Sent #{request.body} recieved #{response.body}"
       if response.code.to_i == 200
         return JSON.parse(response.body)
       end

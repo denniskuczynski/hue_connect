@@ -1,9 +1,6 @@
 <div class="row">
   <div class="span12">
-	<% if not @configuration.hub_ip.nil? %>
-	  <h3>Currently connecting with Hue Hub <%= @configuration.hub_ip %></h3>
-	<% end %>
-	<form method="POST" action="/discover">
+	<form method="POST" action="<%=u('/discover')%>">
 	  <fieldset>
 	    <legend>Discover Hue Hub IP</legend>
 	    <span class="help-block">Click the discover button to set/reset the connected Hue Hub IP Address</span>

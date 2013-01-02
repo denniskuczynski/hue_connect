@@ -1,10 +1,6 @@
-<div class="row">
-  <div class="span12">
-    <h1>Lights</h1>
-	<% if @lights %>
-	  <p><%= @lights %></p>
-	<% else %>
-	  <p>No Lights Found</p>
-	<% end %>
-  </div>
-</div>
+<% if @hub_info and @hub_info['lights'] %>
+  <% @hub_info['lights'].each do |key, value| %>
+	<%= erb :light, :locals => {:light => value, :index => key} %>
+  <% end %>
+<% end %>
+
