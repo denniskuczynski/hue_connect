@@ -6,13 +6,15 @@ Simple Sinatra endpoint for controlling Phillips Hue lights
 
 ## Installation
 
-Clone the repository on a server on the same network as your Phillips Hue Hub:
-* git clone https://github.com/denniskuczynski/hue_connect.git
-
-Execute rackup to start the server on port 9292:
-* rackup
+Clone the repository on a server on the same network as your Phillips Hue Hub, then execute rackup to start the server on port 9292.
+``` ruby
+git clone https://github.com/denniskuczynski/hue_connect.git
+cd hue_connect
+rackup
+```
 
 Browse to http://127.0.0.1:9292 and click the Discover button to setup the HueConnect config.
+(This will generate a config file: hue_connect.json)
 
 ![Screenshot](http://s13.postimage.org/6m2v6ow6v/Hue_Connect_0_0_2_140542.png)
 
