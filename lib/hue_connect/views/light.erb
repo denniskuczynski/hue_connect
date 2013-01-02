@@ -6,6 +6,7 @@
 	  <tr><td>modelid</td><td><%= light['modelid']%></td></tr>
 	  <tr><td>swversion</td><td><%= light['swversion']%></td></tr>
 	  <tr><td>colormode</td><td><%= light['state']['colormode']%></td></tr>
+	  <tr><td>color</td><td class="color_swatch" data-index="<%= index %>"></td></tr>
 	</table>
   </div>
   <div class="span8">
@@ -48,19 +49,19 @@
 	  <div class="control-group">
 	    <label class="control-label" for="hue">Hue</label>
 	    <div class="controls">
-	      <input id="hue" name="hue" type="range" min="0" max="65535" step="1" value="<%= light['state']['hue']%>"/>
+	      <input id="hue_<%= index %>" name="hue" type="range" min="0" max="65535" step="1" value="<%= light['state']['hue']%>"/>
 	    </div>
 	  </div>
 	  <div class="control-group">
 	    <label class="control-label" for="sat">Saturation</label>
 	    <div class="controls">
-	      <input id="sat" name="sat" type="range" min="0" max="254" step="1" value="<%= light['state']['sat']%>"/>
+	      <input id="sat_<%= index %>" name="sat" type="range" min="0" max="254" step="1" value="<%= light['state']['sat']%>"/>
 	    </div>
 	  </div>
 	  <div class="control-group">
 	    <label class="control-label" for="bri">Brightness</label>
 	    <div class="controls">
-	      <input id="bri" name="bri" type="range" min="0" max="254" step="1" value="<%= light['state']['bri']%>"/>
+	      <input id="bri_<%= index %>" name="bri" type="range" min="0" max="254" step="1" value="<%= light['state']['bri']%>"/>
 	    </div>
 	  </div>
 	  <div class="control-group">
