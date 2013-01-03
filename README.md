@@ -12,6 +12,7 @@ Clone the repository on a server on the same network as your Phillips Hue Hub, t
 ``` ruby
 git clone https://github.com/denniskuczynski/hue_connect.git
 cd hue_connect
+bundle install
 rackup
 ```
 
