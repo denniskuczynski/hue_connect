@@ -41,6 +41,14 @@ module HueConnect
       return nil
     end
     
+    def adjust_all_lights(parameters)
+      responses = []
+      get_info['lights'].each do |key, value|
+        responses << adjust_light(key, parameters)
+      end
+      responses
+    end
+    
     def adjust_light(index, parameters)
       uri = URI.parse("http://#{@hub_ip}/api/#{@username}/lights/#{index}/state")
       http = Net::HTTP.new(uri.host, uri.port)

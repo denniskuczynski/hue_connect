@@ -2,5 +2,6 @@
   <% @hub_info['lights'].each do |key, value| %>
 	<%= erb :light, :locals => {:light => value, :index => key} %>
   <% end %>
+  <%= erb :red_green %>
 <% end %>
 
