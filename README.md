@@ -18,6 +18,35 @@ rackup
 Browse to http://127.0.0.1:9292 and click the Discover button to setup the HueConnect config.
 (This will generate a config file: hue_connect.json)
 
+You can also execute HTTP requests programmatically to adjust the light values, for example:
+```ruby
+require 'net/http'
+
+def turn_lights_red
+	uri = URI.parse("http://127.0.0.1:9292/adjust-all")
+	http = Net::HTTP.new(uri.host, uri.port)
+	request = Net::HTTP::Post.new(uri.request_uri)
+	parameters =  {"on"=>true, "hue"=>0, "sat"=>254, "bri"=>254, "alert"=>"none"}
+	request.set_form_data(parameters)
+	response = http.request(request)
+	if response.code.to_i == 200
+	  puts "All lights red"
+	end
+end
+
+def turn_lights_green
+	uri = URI.parse("http://127.0.0.1:9292/adjust-all")
+	http = Net::HTTP.new(uri.host, uri.port)
+	request = Net::HTTP::Post.new(uri.request_uri)
+	parameters = {"on"=>true, "hue"=>24423, "sat"=>254, "bri"=>62, "alert"=>"none"}
+	request.set_form_data(parameters)
+	response = http.request(request)
+	if response.code.to_i == 200
+	  puts "All lights green"
+	end
+end
+```
+
 ![Screenshot](http://s13.postimage.org/6m2v6ow6v/Hue_Connect_0_0_2_140542.png)
 
 ## Contributing
