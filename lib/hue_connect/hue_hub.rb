@@ -12,24 +12,24 @@ module HueConnect
     end
 
     def set_new_username
-      username = Digest::MD5.hexdigest(Time.new.to_s)
+      @username = nil
+      tmp_username = generate_username()
       uri = URI.parse("http://#{@hub_ip}/api")
       http = Net::HTTP.new(uri.host, uri.port)
       request = Net::HTTP::Post.new(uri.request_uri)
-      parameters = {
-        "username" => username, 
+      request.body = JSON.generate({
+        "username" => tmp_username, 
         "devicetype" => APP_NAME
-      }
-      request.body = JSON.generate(parameters)
+      })
       response = http.request(request)
-      puts "Sent #{request.body} recieved #{response.body}"
+      puts "Sent #{request.body} received #{response.body}"
       if response.code.to_i == 200
         response_json = JSON.parse(response.body)
-        return username if not response_json[0]['error']
+        @username = tmp_username if not response_json[0]['error']
       end
-      return nil
+      return @username
     end
-    
+
     def get_info
       uri = URI.parse("http://#{@hub_ip}/api/#{@username}")
       http = Net::HTTP.new(uri.host, uri.port)
@@ -41,25 +41,23 @@ module HueConnect
       return nil
     end
     
-    def adjust_all_lights(parameters)
-      responses = []
-      get_info['lights'].each do |key, value|
-        responses << adjust_light(key, parameters)
-      end
-      responses
-    end
-    
-    def adjust_light(index, parameters)
+    def adjust_light(index, changes)
       uri = URI.parse("http://#{@hub_ip}/api/#{@username}/lights/#{index}/state")
       http = Net::HTTP.new(uri.host, uri.port)
       request = Net::HTTP::Put.new(uri.request_uri)
-      request.body = JSON.generate(parameters)
+      request.body = JSON.generate(changes)
       response = http.request(request)
-      puts "Sent #{request.body} recieved #{response.body}"
+      puts "Sent #{request.body} received #{response.body}"
       if response.code.to_i == 200
         return JSON.parse(response.body)
       end
       return nil
+    end
+
+    private
+
+    def generate_username
+      Digest::MD5.hexdigest(Time.new.to_s)
     end
 
   end

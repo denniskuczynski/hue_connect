@@ -12,6 +12,13 @@ module HueConnect
       write_configuration
     end
 
+    def to_json
+      {
+        'hub_ip' => @hub_ip,
+        'username' => @username
+      }.to_json
+    end
+
     private
     
     def read_configuration
@@ -23,11 +30,8 @@ module HueConnect
     end
     
     def write_configuration
-      configuration = {
-        'hub_ip' => @hub_ip,
-        'username' => @username
-      }
-      File.open(CONFIGURATION_FILE_PATH, 'w') {|f| f.write(configuration.to_json) }
+      configuration = 
+      File.open(CONFIGURATION_FILE_PATH, 'w') {|f| f.write(self.to_json) }
     end
 
   end
