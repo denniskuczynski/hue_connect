@@ -19,8 +19,12 @@ HueConnect.Views.DiscoveryView = Backbone.View.extend({
     var view = this;
     xhr = $.post('http://localhost:9292/discover');
     xhr.done(function(data) {
-      console.log(data);
-      HueConnect.mainRouter.navigate('/', {trigger: true});
+      if (data.hub_ip == undefined || data.hub_ip == null ||
+          data.username == undefined || data.username == null) {
+        HueConnect.vent.trigger("configuration:invalid", data);
+      } else {
+        HueConnect.vent.trigger("configuration:valid", data);
+      }
     });
   }
 });

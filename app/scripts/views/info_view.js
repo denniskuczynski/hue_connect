@@ -1,24 +1,25 @@
 HueConnect.Views.InfoView = Backbone.View.extend({
 
-  el: '#content',
+  el: '#info-view',
 
   template: _.template( $('#info-view-template').html() ),
 
   events: {
   },
 
-  hub_info: {},
+  dispose: function() {
+    this.destroy();
+  },
 
-  initialize: function() {
+  getInfo: function() {
     var view = this;
     xhr = $.getJSON('http://localhost:9292/hub_info');
     xhr.done(function(data) {
-      view.hub_info = data;
-      view.render();
+      HueConnect.vent.trigger("information:recieved", data);
     });
   },
 
-  render: function() {
-    $(this.el).html(this.template({hub_info: JSON.stringify(this.hub_info)}));
+  render: function(hub_info) {
+    $(this.el).html(this.template({hub_info: hub_info}));
   }
 });

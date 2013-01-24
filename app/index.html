@@ -64,12 +64,120 @@
       </div>
     </script>
 
+    <script type="text/template" id="main-view-template">
+      <h3>Main View</h3>
+      <div class="hero-unit" id="lights-view"></div>
+      <div class="hero-unit" id="info-view"></div>
+    </script>
+
     <script type="text/template" id="info-view-template">
       <div class="hero-unit">
         <h3>Hub Information</h3>
-        <p>
-        <%- hub_info %>
-        </p>
+        <table class="table">
+          <tr>
+            <td>Name</td>
+            <td><%- hub_info['config']['name'] %></td>
+          </tr>
+          <tr>
+            <td>MAC</td>
+            <td><%- hub_info['config']['mac'] %></td>
+          </tr>
+          <tr>
+            <td>DHCP</td>
+            <td><%- hub_info['config']['dhcp'] %></td>
+          </tr>
+          <tr>
+            <td>IP Address</td>
+            <td><%- hub_info['config']['ipaddress'] %></td>
+          </tr>
+          <tr>
+            <td>Netmask</td>
+            <td><%- hub_info['config']['netmask'] %></td>
+          </tr>
+          <tr>
+            <td>Gateway</td>
+            <td><%- hub_info['config']['gateway'] %></td>
+          </tr>
+          <tr>
+            <td>Proxy Address</td>
+            <td><%- hub_info['config']['proxyaddress'] %></td>
+          </tr>
+          <tr>
+            <td>Proxy Port</td>
+            <td><%- hub_info['config']['proxyport'] %></td>
+          </tr>
+          <tr>
+            <td>UTC</td>
+            <td><%- hub_info['config']['UTC'] %></td>
+          </tr>
+          <tr>
+            <td>Software Version</td>
+            <td><%- hub_info['config']['swversion'] %></td>
+          </tr>
+          <tr>
+            <td>Link Button</td>
+            <td><%- hub_info['config']['linkbutton'] %></td>
+          </tr>
+        </table>
+      </div>
+    </script>
+
+    <script type="text/template" id="light-view-template">
+      <div class="hero-unit">
+        <table class="table">
+          <tr>
+            <td>Name</td>
+            <td><%- light['name'] %></td>
+          </tr>
+          <tr>
+            <td>Model ID</td>
+            <td><%- light['modelid'] %></td>
+          </tr>
+          <tr>
+            <td>Type</td>
+            <td><%- light['type'] %></td>
+          </tr>
+          <tr>
+            <td>SW Version</td>
+            <td><%- light['swversion'] %></td>
+          </tr>
+          <tr>
+            <td>On</td>
+            <td><%- light['state']['on'] %></td>
+          </tr>
+          <tr>
+            <td>Brightness</td>
+            <td><%- light['state']['bri'] %></td>
+          </tr>
+          <tr>
+            <td>Hue</td>
+            <td><%- light['state']['hue'] %></td>
+          </tr>
+          <tr>
+            <td>Saturation</td>
+            <td><%- light['state']['sat'] %></td>
+          </tr>
+          <tr>
+            <td>Temperature</td>
+            <td><%- light['state']['ct'] %></td>
+          </tr>
+          <tr>
+            <td>Alert</td>
+            <td><%- light['state']['alert'] %></td>
+          </tr>
+          <tr>
+            <td>Effect</td>
+            <td><%- light['state']['effect'] %></td>
+          </tr>
+          <tr>
+            <td>Color Mode</td>
+            <td><%- light['state']['colormode'] %></td>
+          </tr>
+          <tr>
+            <td>Reachable</td>
+            <td><%- light['state']['reachable'] %></td>
+          </tr>
+        </table>
       </div>
     </script>
 
@@ -100,6 +208,8 @@
     <script src="scripts/views/initialization_view.js"></script>
     <script src="scripts/views/discovery_view.js"></script>
     <script src="scripts/views/info_view.js"></script>
+    <script src="scripts/views/light_view.js"></script>
+    <script src="scripts/views/main_view.js"></script>
     <script src="scripts/routers/main_router.js"></script>
     <script src="scripts/main.js"></script>
     <!-- endbuild -->

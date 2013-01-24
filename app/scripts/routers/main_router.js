@@ -2,31 +2,42 @@ HueConnect.Routers.MainRouter = Backbone.Router.extend({
   routes: {
     "": "index",
     "discover": "discover",
-    "info": "info"
+    "main": "main"
+  },
+
+  currentView: null,
+
+  initialize: function() {
+    HueConnect.vent.on("configuration:invalid", function(){
+      HueConnect.mainRouter.navigate('discover', {trigger: true});
+    });
+    HueConnect.vent.on("configuration:valid", function(){
+      HueConnect.mainRouter.navigate('main', {trigger: true});
+    });
   },
 
   index: function() {
-    console.log("index route");
-    var initializationView = new HueConnect.Views.InitializationView({});
-    initializationView.render();
-
-    xhr = $.getJSON('http://localhost:9292/configuration');
-    xhr.done(function(data) {
-      if (data.hub_ip == undefined || data.hub_ip == null ||
-          data.username == undefined || data.username == null) {
-        HueConnect.mainRouter.navigate('discover', {trigger: true});
-      } else {
-        HueConnect.mainRouter.navigate('info', {trigger: true});
-      }
-    });
+    if (this.currentView !== null) {
+      this.currentView.dispose();
+    }
+    this.currentView = new HueConnect.Views.InitializationView({});
+    this.currentView.render();
+    this.currentView.getConfiguration();
   },
   
   discover: function() {
-    var discoveryView = new HueConnect.Views.DiscoveryView({});
-    discoveryView.render();
+    if (this.currentView !== null) {
+      this.currentView.dispose();
+    }
+    this.currentView = new HueConnect.Views.DiscoveryView({});
+    this.currentView.render();
   },
 
-  info: function() {
-    var infoView = new HueConnect.Views.InfoView({});
+  main: function() {
+    if (this.currentView !== null) {
+      this.currentView.dispose();
+    }
+    this.currentView = new HueConnect.Views.MainView({});
+    this.currentView.render();
   }
 });

@@ -35,5 +35,17 @@ HueConnect.Views.InitializationView = Backbone.View.extend({
     };
     var target = document.getElementById('spinner');
     var spinner = new Spinner(opts).spin(target);
+  },
+
+  getConfiguration: function() {
+    xhr = $.getJSON('http://localhost:9292/configuration');
+    xhr.done(function(data) {
+      if (data.hub_ip == undefined || data.hub_ip == null ||
+          data.username == undefined || data.username == null) {
+        HueConnect.vent.trigger("configuration:invalid", data);
+      } else {
+        HueConnect.vent.trigger("configuration:valid", data);
+      }
+    });
   }
 });
